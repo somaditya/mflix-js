@@ -26,8 +26,8 @@ will look like **<lesson-name>.spec.js**, and can be run with ``npm test -t
 
 The API layer is fully implemented, as is the UI. The application is programmed
 to  run on port **5000** by default - if you need to run on a port other than
-5000, you can edit the **index.html** file in the build directory to modify the
-value of **window.host**.
+5000, you can edit the **dotenv_win** (if on Windows) or the **dotenv_unix** file
+(if on Linux or Mac) in the root directory to modify the value of **PORT**.
 
 Please do not modify the API layer in any way, under the **mflix-js/src/api**
 directory. This may result in the front-end application failing to validate some
@@ -51,8 +51,8 @@ following command:
   node -v
 
 This should print out the version of ``node`` you currently have - we recommend
-using version 10 or later, so this command should print something like
-``v10.x``.
+using the latest Long Term Support version, currently 10.16.3, so this command should print something like
+``v10.16.3``.
 
 Once ``npm`` is installed, you can install the MFlix dependencies by running the
 following command from the **mflix-js** directory:
@@ -67,6 +67,14 @@ the **package.json** file where the dependencies are.
 You may see warnings depending on your operating system from **fsevents** or
 Husky warning about **git** missing. These are informational only and do not
 impact the functionality of the application. You can safely ignore them.
+
+You may also get a **node-gyp** error. Run ``npm rebuild`` and it should resolve
+this and install the dependencies required.
+
+While running ``npm install``, you might encounter the below error regarding ``node-gyp rebuild``.
+Although, it is completely harmless and you can start the application by running ``npm start``.
+
+.. image:: https://s3.amazonaws.com/university-courses/m220/m220js-npm-install-warning.png
 
 
 MongoDB Installation
@@ -198,7 +206,16 @@ Allow this user the privilege to **Read and write to any database**:
 .. image:: https://s3.amazonaws.com/university-courses/m220/cluster_application_user.png
 
 
-8. When the user is created, and the cluster deployed, you can test the setup by
+8. When the user is created, and the cluster deployed, you have the option to
+   ``Load Sample Dataset``. This will load the Atlas sample dataset, containing
+   the MFlix database, into your cluster:
+
+.. image:: https://s3.amazonaws.com/university-courses/m220/load_sample_dataset.png
+
+**Note: The MFlix database in the Sample Dataset is called "sample_mflix".**
+
+
+9. Now you can test the setup by
    connecting via the Mongo shell. You can find instructions to connect in the
    **Connect Your Application** section of the cluster dashboard:
 
@@ -226,8 +243,10 @@ You may see the following message when you connect::
 This is a log message, **not** an error - feel free to ignore it.
 
 
-Importing Data
---------------
+Importing Data (Optional)
+-------------------------
+
+**Note: if you used Load Sample Dataset, you can skip this step.**
 
 The ``mongorestore`` command necessary to import the data is located below. Copy
 the command and use an Atlas SRV string to import the data (including username

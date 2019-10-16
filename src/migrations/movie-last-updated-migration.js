@@ -22,7 +22,7 @@ const MongoError = require("mongodb").MongoError
       host,
       { useNewUrlParser: true },
     )
-    const mflix = client.db("mflix")
+    const mflix = client.db(process.env.MFLIX_NS)
 
     // TODO: Create the proper predicate and projection
     // add a predicate that checks that the `lastupdated` field exists, and then
