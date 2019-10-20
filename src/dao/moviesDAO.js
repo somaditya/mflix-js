@@ -317,7 +317,6 @@ export default class MoviesDAO {
               { $match: { $expr: { $eq: ["$movie_id", "$$id"] } } },
               { $sort: { date: -1 } },
             ],
-
             as: "comments",
           },
         },
