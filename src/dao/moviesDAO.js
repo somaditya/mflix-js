@@ -248,6 +248,8 @@ export default class MoviesDAO {
         .find(query)
         .project(project)
         .sort(sort)
+        .limit(moviesPerPage)
+        .skip(page * moviesPerPage)
     } catch (e) {
       console.error(`Unable to issue find command, ${e}`)
       return { moviesList: [], totalNumMovies: 0 }
