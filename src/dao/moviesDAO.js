@@ -312,8 +312,12 @@ export default class MoviesDAO {
         {
           $lookup: {
             from: "comments",
-            localField: "_id",
-            foreignField: "movie_id",
+            let: { id: "$_id" },
+            pipeline: [
+              { $match: { $expr: { $eq: ["$movie_id", "$$id"] } } },
+              { $sort: { date: -1 } },
+            ],
+
             as: "comments",
           },
         },
