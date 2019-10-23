@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon -L ./index.js",
+    "build": "NODE_ENV=production babel src -d dist --copy-files",
     "test": "jest --passWithNoTests",
     "test:watch": "jest --passWithNoTests --watch",
     "changestream:update": "node test/lessons/change-updates.js",
